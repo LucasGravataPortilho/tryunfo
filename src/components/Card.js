@@ -14,7 +14,7 @@ class Card extends React.Component {
         <h3 data-testid="attr1-card">{ cardAttr1 }</h3>
         <h3 data-testid="attr2-card">{ cardAttr2 }</h3>
         <h3 data-testid="attr3-card">{ cardAttr3 }</h3>
-        <h4 data-testid="rare-card">{ cardRare }</h4>
+        <h4 data-testid="rare-card">{ cardRare.toUpperCase() }</h4>
         {cardTrunfo && <h2 data-testid="trunfo-card">Super Trunfo</h2>}
       </div>
     );
