@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Form extends React.Component {
   render() {
@@ -94,7 +95,7 @@ class Form extends React.Component {
               type="checkbox"
               name="trunfo"
               id="trunfo"
-              value={ cardTrunfo }
+              checked={ cardTrunfo }
               onChange={ onInputChange }
               data-testid="trunfo-input"
             />
@@ -112,5 +113,18 @@ class Form extends React.Component {
     );
   }
 }
+
+Form.propTypes = {
+  cardName: PropTypes.string,
+  cardDescription: PropTypes.string,
+  cardAttr1: PropTypes.string,
+  cardAttr2: PropTypes.string,
+  cardAttr3: PropTypes.string,
+  cardImage: PropTypes.string,
+  cardRare: PropTypes.string,
+  cardTrunfo: PropTypes.bool,
+  hasTrunfo: PropTypes.bool,
+  isSaveButtonDisabled: PropTypes.bool,
+}.isRequired;
 
 export default Form;
