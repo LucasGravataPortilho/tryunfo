@@ -8,6 +8,7 @@ class App extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
     this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
     this.handleHasTrunfo = this.handleHasTrunfo.bind(this);
+    this.removeCard = this.removeCard.bind(this);
 
     this.state = {
       nome: '',
@@ -63,9 +64,9 @@ class App extends React.Component {
     event.preventDefault();
 
     const { nome, description, attr1, attr2, attr3,
-      image, rare } = this.state;
+      image, rare, trunfo } = this.state;
 
-    const infos = { nome, description, attr1, attr2, attr3, image, rare };
+    const infos = { nome, description, attr1, attr2, attr3, image, rare, trunfo };
 
     this.setState((prevState) => ({
       cards: [...prevState.cards, infos],
@@ -78,6 +79,22 @@ class App extends React.Component {
       rare: 'normal',
       isSaveButtonDisabled: true,
     }), this.handleHasTrunfo);
+  }
+
+  removeCard(name) {
+    const { cards } = this.state;
+    const removedCard = cards.filter((card) => card.nome !== name);
+    this.setState({ cards: removedCard });
+
+    if (removedCard.some(({ trunfo }) => trunfo)) {
+      this.setState({
+        hasTrunfo: true,
+      });
+    } else {
+      this.setState({
+        hasTrunfo: false,
+      });
+    }
   }
 
   render() {
@@ -122,6 +139,13 @@ class App extends React.Component {
               cardRare={ card.rare }
               cardTrunfo={ card.trunfo }
             />
+            <button
+              type="button"
+              data-testid="delete-button"
+              onClick={ () => this.removeCard(card.nome) }
+            >
+              Excluir
+            </button>
           </div>
         ))}
       </div>
