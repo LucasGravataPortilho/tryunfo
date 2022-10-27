@@ -6,6 +6,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.onInputChange = this.onInputChange.bind(this);
+    this.onSaveButtonClick = this.onSaveButtonClick.bind(this);
 
     this.state = {
       nome: '',
@@ -17,6 +18,7 @@ class App extends React.Component {
       rare: '',
       trunfo: false,
       isSaveButtonDisabled: true,
+      cards: [],
     };
   }
 
@@ -26,6 +28,7 @@ class App extends React.Component {
     this.setState({ [name]: value }, () => {
       const { nome, description, attr1, attr2, attr3,
         image, rare } = this.state;
+
       const sum = Number(attr1) + Number(attr2) + Number(attr3);
       const limitSum = 210;
       const maxValue = 90;
@@ -42,6 +45,27 @@ class App extends React.Component {
         isSaveButtonDisabled: !(validInput && checkMaxMin && checkAllattr),
       });
     });
+  }
+
+  onSaveButtonClick(event) {
+    event.preventDefault();
+
+    const { nome, description, attr1, attr2, attr3,
+      image, rare } = this.state;
+
+    const infos = { nome, description, attr1, attr2, attr3, image, rare };
+
+    this.setState((prevState) => ({
+      cards: [...prevState.cards, infos],
+      nome: '',
+      description: '',
+      attr1: 0,
+      attr2: 0,
+      attr3: 0,
+      image: '',
+      rare: 'normal',
+      isSaveButtonDisabled: true,
+    }));
   }
 
   render() {
@@ -61,6 +85,7 @@ class App extends React.Component {
           cardTrunfo={ trunfo }
           onInputChange={ this.onInputChange }
           isSaveButtonDisabled={ isSaveButtonDisabled }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           cardName={ nome }
