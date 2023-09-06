@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import NamesFiltered from './components/NamesFiltered';
 
 class App extends React.Component {
   constructor() {
@@ -22,6 +23,7 @@ class App extends React.Component {
       hasTrunfo: false,
       isSaveButtonDisabled: true,
       cards: [],
+      nameFilter: '',
     };
   }
 
@@ -99,10 +101,16 @@ class App extends React.Component {
 
   render() {
     const { nome, description, attr1, attr2, attr3, image, rare, trunfo,
-      isSaveButtonDisabled, hasTrunfo, cards } = this.state;
+      isSaveButtonDisabled, hasTrunfo, cards, nameFilter } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
+        <div>
+          <NamesFiltered
+            nameFilter={ nameFilter }
+            onInputChange={ this.onInputChange }
+          />
+        </div>
         <Form
           cardName={ nome }
           cardDescription={ description }
